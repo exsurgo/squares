@@ -1,4 +1,4 @@
-# Getting Started
+# A fun Tic-Tac-Toe like game
 
 ## Available Scripts
 

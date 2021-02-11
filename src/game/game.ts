@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 
-export const GAME_SIZE = 3;
-export const WIN_SIZE = 3;
+export const GAME_SIZE = 5;
+export const WIN_SIZE = 4;
 
 export enum Player {
   X = 'x',
@@ -62,7 +62,7 @@ export const controller = new class {
     this.onSelect$.next({ player, tile: [x, y]});
 
     // Check for winner
-    const line = this.check(player, x, y);
+    const line = this.checkWinner(player, x, y);
     if (line) {
       this.winner = { player, line };
       this.onWin$.next(this.winner);
@@ -109,6 +109,7 @@ export const controller = new class {
       case Direction.Right:
         if (x < GAME_SIZE - 1) x++;
     }
+
     if (x !== this.tile[0] || y !== this.tile[1]) {
       this.tile[0] = x;
       this.tile[1] = y;
@@ -117,7 +118,7 @@ export const controller = new class {
   }
 
   /** Check the board for a winner. */
-  check(player: Player, startX: number, startY: number): Line|null {
+  checkWinner(player: Player, startX: number, startY: number): Line|null {
     const boxes = this.tiles;
     let line: Line;
     let x, y;
